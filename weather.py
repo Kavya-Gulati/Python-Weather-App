@@ -1,8 +1,12 @@
 #Python weather app
+import os
+from dotenv import load_dotenv
 import sys
 from PySide6.QtWidgets import QLabel,QApplication,QWidget,QVBoxLayout,QLineEdit,QPushButton
 from PySide6.QtCore import Qt
 import requests
+
+load_dotenv()
 
 class WeatherApp(QWidget):
     def __init__(self):
@@ -70,7 +74,8 @@ class WeatherApp(QWidget):
         self.get_weather_button.clicked.connect(self.get_weather)
 
     def get_weather(self):
-        api = 'a0f7e8a99699ad6b1a0f30914afcee43'
+        api = os.environ.get('API_KEY')
+        print(f'{api}')
         city = self.city_input.text()
         url = f'https://api.openweathermap.org/data/2.5/weather?q={city}&appid={api}'
 
