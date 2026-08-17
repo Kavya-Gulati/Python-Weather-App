@@ -32,7 +32,6 @@ class WeatherApp(QWidget):
         self.description_label.setAlignment(Qt.AlignCenter)
         self.emoji_label.setAlignment(Qt.AlignCenter)
         
-        #It just assigns a name to the objects so it is easier to perform methods on them such as applying css properties
         self.city_label.setObjectName('city_label')
         self.city_input.setObjectName('city_input')
         self.temp_label.setObjectName('temp_label')
@@ -77,8 +76,6 @@ class WeatherApp(QWidget):
 
         try:
             response = requests.get(url)
-            
-            #the raise for status method is only used to raise the http error incase it occurs as it cant be normally detected by the try block.
             response.raise_for_status()             
             data=response.json()
             if data['cod']==200:
@@ -114,7 +111,6 @@ class WeatherApp(QWidget):
         except requests.exceptions.TooManyRedirects:
             self.display_error('Too Many Redirects\nPlease Check the URL.')
 
-#the RequestException is used to represents errors caused due to network problems etc.
         except requests.exceptions.RequestException as req_error:
             self.display_error(f'Request Error\n{req_error}')
         
@@ -136,8 +132,6 @@ class WeatherApp(QWidget):
         self.emoji_label.setText(self.get_weather_emoji(weather_id))
         self.temp_label.setText(f'{temp_c:.0f}°C')  
         
-
-# i dont know tf static method does..........
     @staticmethod
     def get_weather_emoji(weather_id):
         if 200<= weather_id <=232:
